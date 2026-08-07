@@ -1,0 +1,38 @@
+name: Terraform Apply
+
+on:
+  pull_request:
+    branches:
+    - main
+
+  push:
+    branches:
+    - main
+
+permissions:
+  id_token: write
+  content: read
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Repo Checking
+      uses: actions/checkout@v4
+    - name: AWS Communication to Github
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assueme: ${{ secrets.AWS_ROLE_ARN }}
+        aws-region: ap-south-1
+
+    - name: Terraform setup
+      uses: hashicorp/setup-terraform@v4
+
+    - name: terraform init
+      run:  terraform init
+
+    - name: terraform Apply
+      uses: terraform apply
+
+
