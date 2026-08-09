@@ -1,5 +1,5 @@
 module "s3" {
   source      = "./modules/s3"
-  bucket_name = "dhinesh-pr-final-test-789"
+  bucket_name = "dhinesh-pr-final"
   environment = "dev"
 }
